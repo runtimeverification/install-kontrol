@@ -85,6 +85,9 @@
           with:
             version: latest
 
+        - name: Install Foundry
+          uses: foundry-rs/foundry-toolchain@v1
+    
         - name: Checkout Audit Template
           uses: actions/checkout@v4
           with:
