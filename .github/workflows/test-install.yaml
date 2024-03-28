@@ -1,14 +1,32 @@
 ---
-  name: "Test Installation of KaaS-CLI"
+  name: "Test Install Kontrol"
   on:
     pull_request:
       branches:
         - main
-        
+
     workflow_dispatch:
   jobs:
+    lint:
+      runs-on: ubuntu-latest
+      env:
+        GH_TOKEN: ${{ github.token }}
+  
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+  
+      - name: Install actionlint
+        run: |
+          gh extension install https://github.com/cschleiden/gh-actionlint
+  
+      - name: Run actionlint
+        run: |
+          gh actionlint -verbose -color
+
     install-latest:
       runs-on: [ubuntu-latest]
+      needs: [lint]
       steps:
         - name: Checkout
           uses: actions/checkout@v4
@@ -18,17 +36,29 @@
           with:
             version: latest
 
+        - name: Test Kontrol Version
+          shell: bash
+          run: |
+            kontrol version
+
     install-no-parameter:
       runs-on: [ubuntu-latest]
+      needs: [lint]
       steps:
         - name: Checkout
           uses: actions/checkout@v4
   
         - name: Use Install Kontrol Action
           uses: ./
-            
+  
+        - name: Test Kontrol Version
+          shell: bash
+          run: |
+            kontrol version
+
     install-specific:
       runs-on: [ubuntu-latest]
+      needs: [lint]
       steps:
         - name: Checkout
           uses: actions/checkout@v4
@@ -38,7 +68,37 @@
           with:
             version: v0.1.227
   
-        - name: Test kaas-cli
+        - name: Test Kontrol Version
           shell: bash
           run: |
-            kaas-cli --help
+            kontrol version
+
+    dummy-proof-check:
+      runs-on: [ubuntu-latest]
+      needs: [install-latest, install-no-parameter, install-specific]
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Install Kontrol
+          uses: ./
+          with:
+            version: latest
+
+        - name: Install Foundry
+          uses: foundry-rs/foundry-toolchain@v1
+    
+        - name: Checkout Audit Template
+          uses: actions/checkout@v4
+          with:
+            repository: "runtimeverification/audit-kontrol-template"
+            ref: "master"
+            path: "kontrol-template"
+            token: ${{ secrets.JENKINS_GITHUB_PAT }}
+
+        - name: Dummy Proof Check
+          shell: bash
+          working-directory: kontrol-template
+          run: |
+            echo "Dummy Proof Check"
+            ./kontrol/run-kontrol.sh

@@ -8,7 +8,7 @@ branding:
 inputs:
   version:
     description: "Version of Kontrol to install"
-    required: true
+    required: False
     default: "latest"
 
 runs:
@@ -19,15 +19,14 @@ runs:
       with:
         install_url: https://releases.nixos.org/nix/nix-2.13.3/install
         extra_nix_config: |
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          substituters = http://cache.nixos.org https://cache.iog.io
+          substituters = http://cache.nixos.org https://cache.iog.io https://k-framework.cachix.org https://k-framework-binary.cachix.org
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= k-framework.cachix.org-1:jeyMXB2h28gpNRjuVkehg+zLj62ma1RnyyopA/20yFE=
 
     - name: 'Install Cachix'
-      uses: cachix/cachix-action@v12
+      uses: cachix/cachix-action@v14
       with:
-        name: k-framework
-        authToken: ${{ secrets.CACHIX_PUBLIC_TOKEN }}
+        name: k-framework 
+        skipPush: True
 
     - name: "Install Kup"
       shell: bash
@@ -35,7 +34,7 @@ runs:
         bash <(curl https://kframework.org/install)
 
     - name: "Install Kontrol Latest"
-      if: ${{ inputs.version == 'latest'  || inputs.version == "" }} 
+      if: ${{ inputs.version == 'latest' }} 
       shell: bash
       run: |
         kup install kontrol
