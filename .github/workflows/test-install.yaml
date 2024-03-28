@@ -1,9 +1,10 @@
 ---
   name: "Test Installation of KaaS-CLI"
   on:
-    pull_request:
-      branches:
-        - main
+    workflow_run:
+      workflows: ["Lint Action"]
+      types: 
+        - completed
 
     workflow_dispatch:
   jobs:

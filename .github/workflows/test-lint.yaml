@@ -1,0 +1,22 @@
+name: Lint Action
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install actionlint
+      run: |
+        curl -L https://github.com/rhysd/actionlint/releases/latest/download/actionlint_linux_amd64.tar.gz | tar xzv
+        chmod +x actionlint
+
+    - name: Run actionlint
+      run: |
+        ./actionlint .github/workflows/*.yml
