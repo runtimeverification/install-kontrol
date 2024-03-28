@@ -31,7 +31,7 @@ runs:
         bash <(curl https://kframework.org/install)
 
     - name: "Install Kontrol Latest"
-      if: ${{ inputs.version == 'latest'  || inputs.version == "" }} 
+      if: ${{ inputs.version == 'latest' }} 
       shell: bash
       run: |
         kup install kontrol
