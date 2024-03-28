@@ -14,9 +14,8 @@ jobs:
 
     - name: Install actionlint
       run: |
-        curl -L https://github.com/rhysd/actionlint/releases/latest/download/actionlint_linux_amd64.tar.gz | tar xzv
-        chmod +x actionlint
+        gh extension install https://github.com/cschleiden/gh-actionlint
 
     - name: Run actionlint
       run: |
-        ./actionlint .github/workflows/*.yml
+        gh actionlint 
