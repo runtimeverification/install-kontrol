@@ -20,4 +20,5 @@ jobs:
 
     - name: Run actionlint
       run: |
-        gh actionlint 
+        gh actionlint -verbose -color
+        gh actionlint -verbose -color ./action.yaml

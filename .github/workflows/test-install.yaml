@@ -1,15 +1,33 @@
 ---
   name: "Test Installation of KaaS-CLI"
   on:
-    workflow_run:
-      workflows: ["Lint Action"]
-      types: 
-        - completed
+    pull_request:
+      branches:
+        - main
 
     workflow_dispatch:
   jobs:
+    lint:
+      runs-on: ubuntu-latest
+      env:
+        GH_TOKEN: ${{ github.token }}
+  
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+  
+      - name: Install actionlint
+        run: |
+          gh extension install https://github.com/cschleiden/gh-actionlint
+  
+      - name: Run actionlint
+        run: |
+          gh actionlint -verbose -color
+          gh actionlint -verbose -color ./action.yaml
+
     install-latest:
       runs-on: [ubuntu-latest]
+      needs: [lint]
       steps:
         - name: Checkout
           uses: actions/checkout@v4
@@ -21,6 +39,7 @@
 
     install-no-parameter:
       runs-on: [ubuntu-latest]
+      needs: [lint]
       steps:
         - name: Checkout
           uses: actions/checkout@v4
@@ -30,6 +49,7 @@
             
     install-specific:
       runs-on: [ubuntu-latest]
+      needs: [lint]
       steps:
         - name: Checkout
           uses: actions/checkout@v4
@@ -68,4 +88,4 @@
           working-directory: kontrol-template
           run: |
             echo "Dummy Proof Check"
-            echo "Run ./kontrol/run-kontrol.sh"
+            ./kontrol/run-kontrol.sh
