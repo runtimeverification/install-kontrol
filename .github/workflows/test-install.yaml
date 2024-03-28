@@ -1,0 +1,44 @@
+---
+  name: "Test Installation of KaaS-CLI"
+  on:
+    pull_request:
+      branches:
+        - main
+        
+    workflow_dispatch:
+  jobs:
+    install-latest:
+      runs-on: [ubuntu-latest]
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+  
+        - name: Use Install Kontrol Action
+          uses: ./
+          with:
+            version: latest
+
+    install-no-parameter:
+      runs-on: [ubuntu-latest]
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+  
+        - name: Use Install Kontrol Action
+          uses: ./
+            
+    install-specific:
+      runs-on: [ubuntu-latest]
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+  
+        - name: Use Install Kontrol Action
+          uses: ./
+          with:
+            version: v0.1.227
+  
+        - name: Test kaas-cli
+          shell: bash
+          run: |
+            kaas-cli --help
