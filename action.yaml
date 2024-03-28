@@ -24,6 +24,9 @@ runs:
 
     - name: 'Install Cachix'
       uses: cachix/cachix-action@v14
+      with:
+        name: k-framework 
+        skipPush: True
 
     - name: "Install Kup"
       shell: bash
