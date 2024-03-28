@@ -91,6 +91,7 @@
             repository: "runtimeverification/audit-kontrol-template"
             ref: "master"
             path: "kontrol-template"
+            token: ${{ secrets.GITHUB_TOKEN }}
 
         - name: Dummy Proof Check
           shell: bash
