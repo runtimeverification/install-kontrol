@@ -23,7 +23,6 @@
       - name: Run actionlint
         run: |
           gh actionlint -verbose -color
-          gh actionlint -verbose -color ./action.yaml
 
     install-latest:
       runs-on: [ubuntu-latest]
