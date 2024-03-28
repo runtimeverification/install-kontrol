@@ -6,6 +6,7 @@ please refer to the [release page](https://github.com/runtimeverification/instal
 
 # Usage
 Kontrol Release Page: [Kontrol Releases](https://github.com/runtimeverification/kontrol/releases)
+<!-- start usage -->
 ```yaml
 - uses: runtimeverification/install-kontrol@v1
   with: 
@@ -15,8 +16,13 @@ Kontrol Release Page: [Kontrol Releases](https://github.com/runtimeverification/
     # Default: 'latest'
     version: ''
 ```
+<!-- end usage -->
+
 
 #  Scenarios
+
+- [Use the latest version of Kontrol](#use-the-latest-version-of-kontrol)
+- [Use a specific version of Kontrol](#use-a-specific-version-of-kontrol)
 
 ## Use the latest version of Kontrol
 ```yaml
@@ -40,3 +46,7 @@ or
 
 - run: kontrol version
 ```
+
+# License
+
+The scripts and documentation in this project are released under the [MIT License](LICENSE)
