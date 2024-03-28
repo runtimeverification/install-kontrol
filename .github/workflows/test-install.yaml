@@ -1,5 +1,5 @@
 ---
-  name: "Test Installation of KaaS-CLI"
+  name: "Test Install Kontrol"
   on:
     pull_request:
       branches:
@@ -37,6 +37,11 @@
           with:
             version: latest
 
+        - name: Test Kontrol Version
+          shell: bash
+          run: |
+            kontrol version
+
     install-no-parameter:
       runs-on: [ubuntu-latest]
       needs: [lint]
@@ -46,7 +51,12 @@
   
         - name: Use Install Kontrol Action
           uses: ./
-            
+  
+        - name: Test Kontrol Version
+          shell: bash
+          run: |
+            kontrol version
+
     install-specific:
       runs-on: [ubuntu-latest]
       needs: [lint]
@@ -59,10 +69,10 @@
           with:
             version: v0.1.227
   
-        - name: Test kaas-cli
+        - name: Test Kontrol Version
           shell: bash
           run: |
-            kaas-cli --help
+            kontrol version
 
     dummy-proof-check:
       runs-on: [ubuntu-latest]
