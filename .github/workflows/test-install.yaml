@@ -4,7 +4,7 @@
     pull_request:
       branches:
         - main
-        
+
     workflow_dispatch:
   jobs:
     install-latest:
@@ -42,3 +42,29 @@
           shell: bash
           run: |
             kaas-cli --help
+
+    dummy-proof-check:
+      runs-on: [ubuntu-latest]
+      needs: [install-latest, install-no-parameter, install-specific]
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Install Kontrol
+          uses: ./
+          with:
+            version: latest
+
+        - name: Checkout Audit Template
+          uses: actions/checkout@v4
+          with:
+            repository: "runtimeverification/audit-kontrol-template"
+            ref: "master"
+            path: "kontrol-template"
+
+        - name: Dummy Proof Check
+          shell: bash
+          working-directory: kontrol-template
+          run: |
+            echo "Dummy Proof Check"
+            echo "Run ./kontrol/run-kontrol.sh"
