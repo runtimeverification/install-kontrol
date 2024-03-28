@@ -101,4 +101,4 @@
           working-directory: kontrol-template
           run: |
             echo "Dummy Proof Check"
-            ./kontrol/run-kontrol.sh
+            ./kontrol/run-kontrol.sh dev
