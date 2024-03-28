@@ -8,7 +8,7 @@ branding:
 inputs:
   version:
     description: "Version of Kontrol to install"
-    required: true
+    required: False
     default: "latest"
 
 runs:
