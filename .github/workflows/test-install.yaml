@@ -35,6 +35,7 @@
           uses: ./
           with:
             version: latest
+            github-token: ${{ secrets.JENKINS_GITHUB_PAT }}
 
         - name: Test Kontrol Version
           shell: bash
@@ -50,6 +51,8 @@
   
         - name: Use Install Kontrol Action
           uses: ./
+          with:
+            github-token: ${{ secrets.JENKINS_GITHUB_PAT }}
   
         - name: Test Kontrol Version
           shell: bash
@@ -67,6 +70,7 @@
           uses: ./
           with:
             version: v0.1.227
+            github-token: ${{ secrets.JENKINS_GITHUB_PAT }}
   
         - name: Test Kontrol Version
           shell: bash
@@ -84,6 +88,7 @@
           uses: ./
           with:
             version: latest
+            github-token: ${{ secrets.JENKINS_GITHUB_PAT }}
 
         - name: Install Foundry
           uses: foundry-rs/foundry-toolchain@v1

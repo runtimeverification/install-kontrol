@@ -10,6 +10,9 @@ inputs:
     description: "Version of Kontrol to install"
     required: False
     default: "latest"
+  github-token:
+    description: "The GitHub Token to use for Github API requests (Optional)"
+    required: False
 
 runs:
   using: "composite"
@@ -33,17 +36,23 @@ runs:
 
     - name: "Install Kup"
       shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
       run: |
         bash <(curl https://kframework.org/install)
 
     - name: "Install Kontrol Latest"
       if: ${{ inputs.version == 'latest' }} 
       shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
       run: |
         kup install kontrol
 
     - name: "Install Kontrol Version: ${{ inputs.version }}"
       if: ${{ inputs.version != 'latest' }}
       shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
       run: |
         kup install kontrol --version ${{ inputs.version }}
