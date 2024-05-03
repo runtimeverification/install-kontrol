@@ -39,7 +39,6 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.github-token }}
       run: |
-        export GH_TOKEN=${{ inputs.github-token }}
         bash <(curl https://kframework.org/install)
 
     - name: "Install Kontrol Latest"
@@ -48,7 +47,6 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.github-token }}
       run: |
-        export GH_TOKEN=${{ inputs.github-token }}
         kup install kontrol
 
     - name: "Install Kontrol Version: ${{ inputs.version }}"
@@ -57,5 +55,4 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.github-token }}
       run: |
-        export GH_TOKEN=${{ inputs.github-token }}
         kup install kontrol --version ${{ inputs.version }}
