@@ -60,7 +60,7 @@
             kontrol version
 
     install-specific:
-      runs-on: [ubuntu-latest]
+      runs-on: [self-hosted, kaas]
       # needs: [lint]
       steps:
         - name: Checkout
@@ -78,7 +78,7 @@
             kontrol version
 
     dummy-proof-check:
-      runs-on: [ubuntu-latest]
+      runs-on: [self-hosted, kaas]
       needs: [install-latest, install-no-parameter, install-specific]
       steps:
         - name: Checkout
